@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="de">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" media="screen" href="./tictactoe.css">
+	<title>TTT - Step-by-Step</title>
+
+</head>
+
+<body>
+<h1>Tic-Tac-Toe</h1>
+
+<div class="tic-tac-toe">
+<p id="hint">Zum Spielen bitte abwechselnd in die Spielfelder klicken/tappen!</p>
+<div id="gameboard" onclick="markField(event);">
+<button aria-label="">A1</button>
+<button aria-label="">A2</button>
+<button aria-label="">A3</button>	
+            
+<button aria-label="">B1</button>
+<button aria-label="">B2</button>
+<button aria-label="">B3</button>	
+            
+<button aria-label="">C1</button>
+<button aria-label="">C2</button>
+<button aria-label="">C3</button>	
+</div>
+</div>
+
+<script>
+// declare variable player
+var player;
+
+// set player to "x"
+player = "x";
+
+// or combined: declare variable player and set player to "x"
+var player ="x";
+
+// life sign
+// alert("Hello " + player);
+
+// declare variable hint and set it to element object with
+// id "hint", using document.querySelector()
+var hint = document.querySelector("#hint");
+// alert(hint);
+
+// set inner HTML text of hint to "Hello " plus value
+// of player plus " - select a field!" at the end
+hint.innerHTML = "Hello " + player + " - select a field!";
+// alert(hint.innerHTML);
+
+function markField(mouseEvent) {
+	// dev only: alert target object of mouse event
+	// alert(mouseEvent.target);
+
+	// declare variable field and set to target object of mouse event
+	var field = mouseEvent.target;
+
+	// label the field with the player's name,
+	// set aria-label attribute to set background-image)
+	field.setAttribute("aria-label", player);
+
+	// disable field against further mouse clicks (set disabled attribute)
+	field.setAttribute("disabled", "disabled");
+
+	// change name of current player
+	if (player == "x") player = "o";
+	else player = "x";
+
+	// set inner HTML text of hint to "Next player is "
+	// plus value of player plus "!"
+	hint.innerHTML = "Next player is " + player + "!";
+
+	//allFieldsAreSelected();
+
+	// if all fields were selected, using allFieldAreSelected(), then
+	// set hint, indicating the end of the game
+	if (allFieldsAreSelected()) hint.innerHTML = "Game Over";
+}
+
+
+// declare function allFieldsAreSelected
+function allFieldsAreSelected() {
+	//alert("here we go!");
+
+	// declare the variable fields and set it to the list of field objects,
+	// using document.querySelectorAll()
+	var fields = document.querySelectorAll("#gameboard button");
+	var len = fields.length; // "len" for lenght
+
+	// fields is a list/Array, let's get the lenght of the list
+	
+	//alert(fields.length);
+
+	// do something (initial/when to start - condition/when to stop - size of the steps)
+	// counter "<" (less) then the "len" (lenght = 9)
+	// "c" for counter (if using very short names!)
+	// "c++" is the same like "c = c + 1"
+	for (var c = 0; c < len; c = c + 1) {
+		//alert("c = " + c);
+
+		var f = fields[c]; // get object from the list fields
+		//alert (f.getAttribute("aria-label"));
+
+		// if there is an empty label, return false (exit function)
+		if (f.getAttribute("aria-label") == "") {
+			//alert("Bingo");
+			return false;
+		}
+	}
+
+	//alert("Bongo");
+	return true;
+}
+
+</script>
+</body>
